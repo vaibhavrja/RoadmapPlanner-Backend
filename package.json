@@ -1,0 +1,20 @@
+{
+  "name": "rpnodebackend",
+  "version": "1.0.0",
+  "description": "It is a project which contains all the code related to the backend part of roadmap planer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vaibhav",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "chatgpt": "^5.2.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mysql": "^2.18.1"
+  }
+}
