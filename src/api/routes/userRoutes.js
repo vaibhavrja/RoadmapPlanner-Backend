@@ -2,17 +2,16 @@ const users = require('../controllers/userController')
 const express = require('express')
 const router = express.Router()
 
-router.post("/isUserValid",async (req,resp)=>{
-    resp.send(await users.getUser(req));
+router.post("/createUser",async (req,resp)=>{
+    resp.send(await users.createUser(req.body,resp));
 })
 
-router.post("/addUser",(req,resp)=>{
-    result = users.addUser(req)
-    result.then(res=>{
-        resp.send(res);
-    }).catch(err=>{
-        console.log(err);
-    })
+router.post("/authenticateUser",async (req,resp)=>{
+    resp.send(await users.authenticateUser(req.body,resp));
+})
+
+router.post("/authenticateUserJWTToken",async (req,resp)=>{
+    resp.send(await users.authenticateUserJWTToken(req,false));
 })
 
 module.exports = router;

@@ -3,9 +3,13 @@ const bodyParser = require('body-parser')
 const usersRoadmap = require('./BusinessLogic/publishedRoadmap') 
 const app = express()
 const userRouter = require('./src/api/routes/userRoutes')
+var cookieParser = require('cookie-parser')
 
 //Use to parse the input into json
 app.use(bodyParser.json())
+
+//Use to set and get cookies
+app.use(cookieParser('roadmap_planner'))
 
 //Routes related to USER table
 app.use("/api/user",userRouter)
