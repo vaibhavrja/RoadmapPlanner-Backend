@@ -1,7 +1,10 @@
 require("dotenv/config");
 const UsersModel = require('../models/userModel')
+const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
-const secretKey = process.env.JWT_SECRET_KEY
+const jwtSecretKey = process.env.JWT_SECRET_KEY
+const passwordSecretKey = process.env.PASSWORD_SECRET_KEY
+
 
 const createUser = async (data,resp) =>{
     let name = data['name']
@@ -10,8 +13,12 @@ const createUser = async (data,resp) =>{
     const userDetails = {
         email:email
     }
-    jwtToken = jwt.sign(userDetails,secretKey)
-    result = await UsersModel.createUser(name,email,password,jwtToken)
+    jwtToken = jwt.sign(userDetails,jwtSecretKey)
+
+    // hash the password, this can not be reversed
+    const hashPassword = await bcrypt.hash(password,passwordSecretKey);
+    
+    result = await UsersModel.createUser(name,email,hashPassword,jwtToken)
     if(result == true){
         resp.cookie('rpUserEmail',email,{ signed: true })
         resp.cookie('rpUserToken',jwtToken,{ signed: true })
@@ -24,8 +31,12 @@ const authenticateUser = async (data,resp) =>{
     const userDetails = {
         email:data['email']
     }
-    jwtToken = jwt.sign(userDetails,secretKey)
-    result = await UsersModel.authenticateUser(data['email'],data['password'],jwtToken);
+    jwtToken = jwt.sign(userDetails,jwtSecretKey)
+    
+    // hash the password, this can not be reversed
+    const hashPassword = await bcrypt.hash(data['password'], passwordSecretKey);
+
+    result = await UsersModel.authenticateUser(data['email'],hashPassword,jwtToken);
     if(result.changedRows == 1){
         resp.cookie('rpUserEmail',data['email'],{ signed: true })
         resp.cookie('rpUserToken',jwtToken,{ signed: true })
