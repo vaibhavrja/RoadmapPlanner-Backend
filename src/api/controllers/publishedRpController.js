@@ -20,10 +20,20 @@ const createRoadmap = async(req) =>{
     return false
 }
 
+const updateRoadmap = async(req) =>{
+    userDetails = await UsersController.authenticateUserJWTToken(req,true);
+    if(userDetails != {}){
+        data = req.body
+        result = await PublishedRpModel.updateRoadmap(data,userDetails[0].userid)
+        return result
+    }
+    return false
+}
+
 const deleteUserRoadmap = async (req) =>{
     userDetails = await UsersController.authenticateUserJWTToken(req,true);
     if(userDetails != {}){
-        result = await PublishedRpModel.getAllPublishedRpsByUser(req.body['rpid'],userDetails[0].userid)
+        result = await PublishedRpModel.deleteUserRoadmap(req.body['rpid'],userDetails[0].userid)
         return result
     }
     return false
@@ -32,5 +42,6 @@ const deleteUserRoadmap = async (req) =>{
 module.exports = {
     getUsersRoadmap,
     createRoadmap,
+    updateRoadmap,
     deleteUserRoadmap
 }

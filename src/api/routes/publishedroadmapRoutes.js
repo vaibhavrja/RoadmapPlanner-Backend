@@ -16,14 +16,9 @@ router.post("/createRoadmap",async (req,resp)=>{
     resp.send(await publishedRoadmap.createRoadmap(req))
 })
 
-// router.post("/published_roadmap/updateUsersRoadmap",(req,resp)=>{
-//     result = usersRoadmap.updateUsersRoadmap(req)
-//     result.then(res=>{
-//         resp.send(res);
-//     }).catch(err=>{
-//         console.log(err);
-//     })
-// })
+router.post("/updateUsersRoadmap",async (req,resp)=>{
+    resp.send(await publishedRoadmap.updateRoadmap(req))
+})
 
 router.post("/deleteUsersRoadmap",async (req,resp)=>{
     resp.send(await publishedRoadmap.deleteUserRoadmap(req))
