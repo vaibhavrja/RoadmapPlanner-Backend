@@ -4,6 +4,7 @@ const app = express()
 const cookieParser = require('cookie-parser')
 const userRouter = require('./src/api/routes/userRoutes')
 const publishedRoadmapPlanner = require('./src/api/routes/publishedroadmapRoutes')
+const roadmapComments = require('./src/api/routes/rpCommentsRoutes.js')
 const userProgressRoute = require('./src/api/routes/userProgressRoutes')
 const rpSubscribers = require('./src/api/routes/rpSubscribersRoutes')
 
@@ -18,5 +19,8 @@ app.use("/api/user",userRouter)
 app.use("/api/published_roadmap",publishedRoadmapPlanner)
 app.use('/api/user_progress',userProgressRoute)
 app.use('/api/rp_subscribers/',rpSubscribers)
+
+//Routes related to roadmap comments 
+app.use("/api/roadmap_comments",roadmapComments)
 
 app.listen(5000)
