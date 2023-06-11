@@ -1,12 +1,12 @@
 const RpComments = require('../models/rpCommentsModel')
 
 async function getRpComments(req, resp) {
-    paga = req.query.paga? parseInt(req.query.paga) : 1
+    page = req.query.page? parseInt(req.query.page) : 1
     limit = req.query.limit? parseInt(req.query.limit) :5
     if(!req.query.rp_id){
         return resp.status(400).json({ error: 'Invalid paramter' });
     }
-    return  resp.send(await RpComments.findAll(rp_id,paga,limit))
+    return  resp.send(await RpComments.findAll(req.query.rp_id,page,limit))
 }
 
 async function deleteComments(req, resp) {
